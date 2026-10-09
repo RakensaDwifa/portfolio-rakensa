@@ -49,7 +49,11 @@ function ProjectCard({
               src={project.imageUrl}
               alt={project.title}
               fill
-              sizes="(min-width: 1024px) 640px, 100vw"
+              sizes={
+                project.featured
+                  ? "(min-width: 1024px) 1120px, 100vw"
+                  : "(min-width: 1024px) 560px, 100vw"
+              }
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (

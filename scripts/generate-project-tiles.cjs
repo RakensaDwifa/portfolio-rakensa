@@ -81,8 +81,8 @@ async function main() {
     const svg = Buffer.from(buildTile(tile));
     const file = path.join(outDir, `${tile.slug}.webp`);
     await sharp(svg)
-      .resize(1200, 750)
-      .webp({ quality: 85 })
+      .resize(1600, 1000)
+      .webp({ quality: 90 })
       .toFile(file);
     console.log(`OK ${tile.slug}.webp -> ${file}`);
   }
