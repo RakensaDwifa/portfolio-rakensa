@@ -161,7 +161,7 @@ function ProjectModal({
           </button>
         </div>
 
-        <div className="overflow-y-auto p-6 sm:p-8">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8">
           <span className="rounded-full border-2 border-ink bg-ocean-soft px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest">
             {project.category}
           </span>
