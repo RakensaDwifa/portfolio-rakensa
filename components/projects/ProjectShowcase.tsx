@@ -8,6 +8,7 @@ import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { projectsData } from "@/data/portfolioData";
+import { getLenis } from "@/lib/lenis";
 import type { Project } from "@/types/portfolio";
 
 function ProjectCard({
@@ -114,9 +115,13 @@ function ProjectModal({
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    getLenis()?.stop();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      getLenis()?.start();
     };
   }, [onClose]);
 
@@ -161,7 +166,10 @@ function ProjectModal({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8">
+        <div
+          data-lenis-prevent
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8"
+        >
           <span className="rounded-full border-2 border-ink bg-ocean-soft px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest">
             {project.category}
           </span>
