@@ -335,12 +335,20 @@ export function ProjectShowcase() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <div className="mt-8 flex flex-wrap items-center gap-2">
+          <div
+            role="tablist"
+            aria-label="Filter projects by category"
+            className="mt-8 flex flex-wrap items-center gap-2"
+          >
             {FILTER_TABS.map((tab) => {
               const isActive = activeFilter === tab.key;
               return (
                 <button
                   key={tab.key}
+                  role="tab"
+                  id={`tab-${tab.key}`}
+                  aria-selected={isActive}
+                  aria-controls="project-grid"
                   type="button"
                   onClick={() => setActiveFilter(tab.key)}
                   className={`inline-flex items-center gap-2 rounded-full border-2 border-ink px-4 py-1.5 font-mono text-xs font-bold transition-transform shadow-brutal-xs hover:-translate-y-0.5 ${
@@ -363,7 +371,12 @@ export function ProjectShowcase() {
           </div>
         </Reveal>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <div
+          id="project-grid"
+          role="region"
+          aria-live="polite"
+          className="mt-8 grid gap-6 lg:grid-cols-2"
+        >
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}

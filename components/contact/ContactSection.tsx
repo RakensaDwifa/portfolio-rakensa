@@ -115,17 +115,18 @@ export function ContactSection() {
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-sand-50/30 bg-sand-50/10 px-2.5 py-1 text-xs font-semibold text-sand-50 transition-colors hover:border-ocean hover:text-ocean-soft"
+                    aria-label={copied ? "Email copied to clipboard" : "Copy email address to clipboard"}
+                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg border border-sand-50/30 bg-sand-50/10 px-3 py-2 text-xs font-semibold text-sand-50 transition-colors hover:border-ocean hover:text-ocean-soft focus-visible:outline-2 focus-visible:outline-ocean focus-visible:outline-offset-2"
                     title="Copy email to clipboard"
                   >
                     {copied ? (
                       <>
-                        <Check size={13} className="text-ocean-soft" />
+                        <Check size={14} className="text-ocean-soft" />
                         <span className="text-ocean-soft font-mono">Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Copy size={13} />
+                        <Copy size={14} />
                         <span className="font-mono">Copy</span>
                       </>
                     )}
@@ -210,7 +211,7 @@ export function ContactSection() {
                 />
               </label>
 
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4" aria-live="polite">
                 <button
                   type="submit"
                   disabled={status === "sending"}
@@ -221,12 +222,12 @@ export function ContactSection() {
                 </button>
 
                 {status === "success" ? (
-                  <p className="text-sm font-semibold text-ocean-dark">
+                  <p className="text-sm font-semibold text-ocean-dark" role="status">
                     Thanks! Your message has been sent.
                   </p>
                 ) : null}
                 {status === "error" ? (
-                  <p className="text-sm font-semibold text-red-600">
+                  <p className="text-sm font-semibold text-red-600" role="alert">
                     Something went wrong. Please email me directly.
                   </p>
                 ) : null}

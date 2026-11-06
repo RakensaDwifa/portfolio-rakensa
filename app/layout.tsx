@@ -75,13 +75,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${jakarta.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-sand-50">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-xl focus:border-2 focus:border-ink focus:bg-ocean focus:px-4 focus:py-2.5 focus:font-bold focus:text-white focus:shadow-brutal focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SmoothScroll>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
           <Footer />
         </SmoothScroll>
         <Analytics />

@@ -42,10 +42,15 @@ function Typewriter() {
   }, [sub, deleting, index]);
 
   return (
-    <span className="text-ocean-dark">
-      {sub}
-      <span className="ml-0.5 inline-block animate-blink font-mono">_</span>
-    </span>
+    <>
+      <span className="sr-only">
+        {ROLES.join(", ")}
+      </span>
+      <span aria-hidden="true" className="text-ocean-dark">
+        {sub}
+        <span className="ml-0.5 inline-block animate-blink font-mono">_</span>
+      </span>
+    </>
   );
 }
 
