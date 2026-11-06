@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, ExternalLink, Plus, X } from "lucide-react";
 import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
@@ -277,9 +277,51 @@ function ProjectModal({
   );
 }
 
+type FilterKey = "all" | "featured" | "fullstack" | "academic";
+
+const FILTER_TABS: { key: FilterKey; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "featured", label: "Featured" },
+  { key: "fullstack", label: "Full-stack & Platform" },
+  { key: "academic", label: "Engineering & Campus" },
+];
+
 export function ProjectShowcase() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
   const close = useCallback(() => setSelected(null), []);
+
+  const counts = useMemo(
+    () => ({
+      all: projectsData.length,
+      featured: projectsData.filter((p) => p.featured).length,
+      fullstack: projectsData.filter((p) =>
+        ["wismaku", "train-journey-tracker", "ucapan-digital"].includes(p.id),
+      ).length,
+      academic: projectsData.filter((p) =>
+        ["hmtf-telkomuniv", "tubes-mekanika-fluida"].includes(p.id),
+      ).length,
+    }),
+    [],
+  );
+
+  const filteredProjects = useMemo(() => {
+    switch (activeFilter) {
+      case "featured":
+        return projectsData.filter((p) => p.featured);
+      case "fullstack":
+        return projectsData.filter((p) =>
+          ["wismaku", "train-journey-tracker", "ucapan-digital"].includes(p.id),
+        );
+      case "academic":
+        return projectsData.filter((p) =>
+          ["hmtf-telkomuniv", "tubes-mekanika-fluida"].includes(p.id),
+        );
+      case "all":
+      default:
+        return projectsData;
+    }
+  }, [activeFilter]);
 
   return (
     <section id="projects" className="scroll-mt-24 py-20 sm:py-24">
@@ -292,11 +334,44 @@ export function ProjectShowcase() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {projectsData.map((project, index) => (
+        <Reveal delay={0.05}>
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            {FILTER_TABS.map((tab) => {
+              const isActive = activeFilter === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveFilter(tab.key)}
+                  className={`inline-flex items-center gap-2 rounded-full border-2 border-ink px-4 py-1.5 font-mono text-xs font-bold transition-transform shadow-brutal-xs hover:-translate-y-0.5 ${
+                    isActive
+                      ? "bg-ocean text-white"
+                      : "bg-sand-50 text-ink hover:bg-sand-100"
+                  }`}
+                >
+                  {tab.label}
+                  <span
+                    className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${
+                      isActive ? "bg-white/20 text-white" : "bg-ink/10 text-ink"
+                    }`}
+                  >
+                    {counts[tab.key]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {filteredProjects.map((project, index) => (
             <div
               key={project.id}
-              className={project.featured ? "lg:col-span-2" : undefined}
+              className={
+                project.featured && activeFilter === "all"
+                  ? "lg:col-span-2"
+                  : undefined
+              }
             >
               <ProjectCard project={project} onOpen={setSelected} index={index} />
             </div>

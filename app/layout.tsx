@@ -47,10 +47,22 @@ const jsonLd = {
     addressLocality: "Bandung",
     addressCountry: "ID",
   },
-  alumniOf: {
+  affiliation: {
     "@type": "CollegeOrUniversity",
     name: "Telkom University",
+    department: {
+      "@type": "Organization",
+      name: "Engineering Physics",
+    },
   },
+  knowsAbout: [
+    "Web Development",
+    "Frontend Engineering",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Engineering Physics",
+  ],
   sameAs: profileData.socials
     .filter((social) => social.key !== "email")
     .map((social) => social.url),

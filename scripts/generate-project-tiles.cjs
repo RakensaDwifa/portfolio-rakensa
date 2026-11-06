@@ -32,6 +32,16 @@ const TILES = [
     title: "Ucapan Digital",
     tags: "NEXT.JS // SUPABASE // MIDTRANS",
   },
+  {
+    slug: "hmtf",
+    title: "HMTF Telkom Univ",
+    tags: "NEXT.JS // TYPESCRIPT // TAILWIND",
+  },
+  {
+    slug: "mekflu",
+    title: "Fluid Mechanics",
+    tags: "REACT // VITE // PHYSICS",
+  },
 ];
 
 function escapeXml(value) {

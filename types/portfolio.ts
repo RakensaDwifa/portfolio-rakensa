@@ -82,3 +82,8 @@ export interface ExperienceItem {
   highlights?: string[];
   tech?: string[];
 }
+
+export interface NowActivityItem {
+  label: string;
+  value: string;
+}

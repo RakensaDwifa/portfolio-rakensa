@@ -1,5 +1,6 @@
 import type {
   ExperienceItem,
+  NowActivityItem,
   ProfileData,
   Project,
   TechItem,
@@ -526,4 +527,11 @@ export const experienceData: ExperienceItem[] = [
     ],
     tech: ["HTML", "CSS", "JavaScript", "TypeScript", "Tailwind CSS", "Git", "React", "Next.js", "Vite", "Supabase"],
   },
+];
+
+export const nowActivitiesData: NowActivityItem[] = [
+  { label: "Building", value: "This portfolio with Next.js & TypeScript" },
+  { label: "Learning", value: "React patterns & component architecture" },
+  { label: "Practicing", value: "Responsive, accessible interfaces" },
+  { label: "Exploring", value: "Where physics and computing overlap" },
 ];

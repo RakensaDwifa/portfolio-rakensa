@@ -1,13 +1,6 @@
 import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
 import { Reveal } from "@/components/ui/Reveal";
-import { profileData } from "@/data/portfolioData";
-
-const NOW = [
-  { label: "Building", value: "This portfolio with Next.js & TypeScript" },
-  { label: "Learning", value: "React patterns & component architecture" },
-  { label: "Practicing", value: "Responsive, accessible interfaces" },
-  { label: "Exploring", value: "Where physics and computing overlap" },
-];
+import { nowActivitiesData, profileData } from "@/data/portfolioData";
 
 export function LearningInPublic() {
   const github = profileData.socials.find((social) => social.key === "github");
@@ -42,7 +35,7 @@ export function LearningInPublic() {
 
           <Reveal direction="left" delay={0.1}>
             <ul className="grid gap-3">
-              {NOW.map((entry, index) => (
+              {nowActivitiesData.map((entry, index) => (
                 <li
                   key={entry.label}
                   className="flex items-center gap-4 rounded-2xl border-2 border-sand-50/25 bg-ink px-5 py-4 transition-colors hover:border-ocean"
