@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { ComponentType, FormEvent } from "react";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Check, Copy, Mail, MapPin, Send } from "lucide-react";
 import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
 import SiInstagram from "@icons-pack/react-simple-icons/icons/SiInstagram";
 import SiTiktok from "@icons-pack/react-simple-icons/icons/SiTiktok";
@@ -51,6 +51,13 @@ const SOCIAL_ICONS: Record<SocialKey, ComponentType<{ size?: number; className?:
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(profileData.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const update = (field: keyof typeof form, value: string) =>
     setForm((previous) => ({ ...previous, [field]: value }));
@@ -98,12 +105,32 @@ export function ContactSection() {
                 <p className="font-mono text-xs font-bold uppercase tracking-widest text-ocean-soft">
                   Reach me directly
                 </p>
-                <a
-                  href={`mailto:${profileData.email}`}
-                  className="mt-2 block break-all font-display text-lg font-bold underline decoration-ocean underline-offset-4"
-                >
-                  {profileData.email}
-                </a>
+                <div className="mt-2 flex flex-wrap items-center gap-3">
+                  <a
+                    href={`mailto:${profileData.email}`}
+                    className="break-all font-display text-lg font-bold underline decoration-ocean underline-offset-4"
+                  >
+                    {profileData.email}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-sand-50/30 bg-sand-50/10 px-2.5 py-1 text-xs font-semibold text-sand-50 transition-colors hover:border-ocean hover:text-ocean-soft"
+                    title="Copy email to clipboard"
+                  >
+                    {copied ? (
+                      <>
+                        <Check size={13} className="text-ocean-soft" />
+                        <span className="text-ocean-soft font-mono">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} />
+                        <span className="font-mono">Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
                 <p className="mt-3 inline-flex items-center gap-2 text-sm text-sand-50/70">
                   <MapPin size={16} className="text-ocean-soft" />
                   {profileData.location}

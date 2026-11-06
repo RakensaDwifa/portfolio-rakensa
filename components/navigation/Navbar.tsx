@@ -2,15 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-
-const LINKS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "journey", label: "Journey" },
-  { id: "contact", label: "Contact" },
-] as const;
+import { navigationData } from "@/data/portfolioData";
+import { getLenis } from "@/lib/lenis";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -34,7 +27,7 @@ export function Navbar() {
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
     );
 
-    LINKS.forEach((link) => {
+    navigationData.forEach((link) => {
       const el = document.getElementById(link.id);
       if (el) observer.observe(el);
     });
@@ -43,10 +36,19 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (open) {
+      document.body.style.overflow = "hidden";
+      getLenis()?.stop();
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      window.addEventListener("keydown", onKey);
+      return () => {
+        document.body.style.overflow = "";
+        getLenis()?.start();
+        window.removeEventListener("keydown", onKey);
+      };
+    }
   }, [open]);
 
   return (
@@ -70,7 +72,7 @@ export function Navbar() {
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {LINKS.map((link) => (
+          {navigationData.map((link) => (
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
@@ -108,28 +110,35 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div
-          id="mobile-menu"
-          className="mx-auto mt-3 max-w-6xl rounded-2xl border-2 border-ink bg-sand-50 p-3 shadow-brutal lg:hidden"
-        >
-          <ul className="grid gap-1">
-            {LINKS.map((link) => (
-              <li key={link.id}>
-                <a
-                  href={`#${link.id}`}
-                  onClick={() => setOpen(false)}
-                  className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
-                    active === link.id
-                      ? "bg-ink text-sand-50"
-                      : "text-ink-soft hover:bg-sand-200 hover:text-ink"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-ink/40 backdrop-blur-xs lg:hidden"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+          <div
+            id="mobile-menu"
+            className="relative z-50 mx-auto mt-3 max-w-6xl rounded-2xl border-2 border-ink bg-sand-50 p-3 shadow-brutal lg:hidden"
+          >
+            <ul className="grid gap-1">
+              {navigationData.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={() => setOpen(false)}
+                    className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                      active === link.id
+                        ? "bg-ink text-sand-50"
+                        : "text-ink-soft hover:bg-sand-200 hover:text-ink"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
       )}
     </header>
   );

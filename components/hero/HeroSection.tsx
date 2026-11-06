@@ -3,7 +3,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowDownToLine, ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  Check,
+  Copy,
+  Eye,
+  MapPin,
+  Sparkles,
+} from "lucide-react";
+import { CvModal } from "@/components/ui/CvModal";
 import { profileData } from "@/data/portfolioData";
 
 const ROLES = ["Web Developer", "Frontend Enthusiast", "Physics Student", "Problem Solver"];
@@ -52,6 +60,15 @@ const item = {
 };
 
 export function HeroSection() {
+  const [copied, setCopied] = useState(false);
+  const [cvOpen, setCvOpen] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(profileData.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section id="home" className="relative overflow-hidden pt-32 pb-20 sm:pt-36 lg:pb-28">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-grid [mask-image:radial-gradient(ellipse_at_top,black,transparent_75%)]" />
@@ -103,14 +120,34 @@ export function HeroSection() {
                 View my work
                 <ArrowUpRight size={18} />
               </a>
-              <a
-                href={profileData.resumeUrl}
-                download
+
+              <button
+                type="button"
+                onClick={() => setCvOpen(true)}
                 className="inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-sand-50 px-5 py-3 text-sm font-bold text-ink shadow-brutal-sm transition-transform hover:-translate-y-0.5"
               >
-                Download CV
-                <ArrowDownToLine size={18} />
-              </a>
+                <Eye size={18} />
+                Preview CV
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-sand-100 px-4 py-3 text-sm font-bold text-ink shadow-brutal-sm transition-transform hover:-translate-y-0.5"
+                title="Copy email address"
+              >
+                {copied ? (
+                  <>
+                    <Check size={18} className="text-ocean-dark" />
+                    <span className="text-ocean-dark">Email copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={18} />
+                    <span>Copy email</span>
+                  </>
+                )}
+              </button>
             </motion.div>
 
             <motion.div
@@ -158,6 +195,12 @@ export function HeroSection() {
       </div>
 
       <div className="ocean-strip mt-20 h-3 w-full border-y-2 border-ink sm:mt-24" />
+
+      <CvModal
+        isOpen={cvOpen}
+        onClose={() => setCvOpen(false)}
+        resumeUrl={profileData.resumeUrl}
+      />
     </section>
   );
 }

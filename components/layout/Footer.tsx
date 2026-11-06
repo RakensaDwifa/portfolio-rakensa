@@ -2,16 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { ArrowUp } from "lucide-react";
-import { profileData } from "@/data/portfolioData";
-
-const NAV = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "journey", label: "Journey" },
-  { id: "contact", label: "Contact" },
-];
+import { navigationData, profileData } from "@/data/portfolioData";
 
 const subscribeToNothing = () => () => {};
 const getClientYear = () => new Date().getFullYear();
@@ -57,7 +48,7 @@ export function Footer() {
               Navigate
             </p>
             <ul className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 text-sm font-semibold sm:grid-cols-3">
-              {NAV.map((link) => (
+              {navigationData.map((link) => (
                 <li key={link.id}>
                   <a
                     href={`#${link.id}`}

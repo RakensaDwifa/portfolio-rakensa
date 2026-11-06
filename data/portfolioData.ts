@@ -1,5 +1,6 @@
 import type {
   ExperienceItem,
+  NavLink,
   NowActivityItem,
   ProfileData,
   Project,
@@ -534,4 +535,13 @@ export const nowActivitiesData: NowActivityItem[] = [
   { label: "Learning", value: "React patterns & component architecture" },
   { label: "Practicing", value: "Responsive, accessible interfaces" },
   { label: "Exploring", value: "Where physics and computing overlap" },
+];
+
+export const navigationData: NavLink[] = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "journey", label: "Journey" },
+  { id: "contact", label: "Contact" },
 ];

@@ -1,9 +1,42 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
 import { Reveal } from "@/components/ui/Reveal";
 import { nowActivitiesData, profileData } from "@/data/portfolioData";
 
+interface GitHubStats {
+  publicRepos: number;
+  followers: number;
+}
+
 export function LearningInPublic() {
+  const [stats, setStats] = useState<GitHubStats | null>(null);
   const github = profileData.socials.find((social) => social.key === "github");
+
+  useEffect(() => {
+    let mounted = true;
+    fetch("https://api.github.com/users/RakensaDwifa")
+      .then((res) => {
+        if (!res.ok) throw new Error("Rate limited or network error");
+        return res.json();
+      })
+      .then((data) => {
+        if (mounted && data) {
+          setStats({
+            publicRepos: data.public_repos ?? 21,
+            followers: data.followers ?? 2,
+          });
+        }
+      })
+      .catch(() => {
+        // Fallback to static metrics silently on rate-limit
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <section className="bg-ink py-20 text-sand-50 sm:py-24">
@@ -20,12 +53,45 @@ export function LearningInPublic() {
               Most of what I know I learned by shipping small projects. I document the
               process on GitHub — commits, experiments, and the occasional late-night fix.
             </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:max-w-md">
+              <div className="rounded-2xl border-2 border-sand-50/25 bg-sand-50/5 p-4 shadow-brutal-xs">
+                <span className="font-mono text-xs uppercase tracking-widest text-ocean-soft">
+                  Public Repos
+                </span>
+                <p className="mt-1 font-display text-2xl font-extrabold text-sand-50">
+                  {stats?.publicRepos ?? "21+"}
+                </p>
+                <p className="mt-0.5 font-mono text-[11px] text-sand-50/60">
+                  Open source projects
+                </p>
+              </div>
+
+              <div className="rounded-2xl border-2 border-sand-50/25 bg-sand-50/5 p-4 shadow-brutal-xs">
+                <span className="font-mono text-xs uppercase tracking-widest text-ocean-soft">
+                  GitHub Status
+                </span>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ocean opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-ocean" />
+                  </span>
+                  <p className="font-display text-lg font-extrabold text-sand-50">
+                    Active
+                  </p>
+                </div>
+                <p className="mt-0.5 font-mono text-[11px] text-sand-50/60">
+                  Shipping code weekly
+                </p>
+              </div>
+            </div>
+
             {github ? (
               <a
                 href={github.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl border-2 border-sand-50 bg-ocean px-5 py-3 text-sm font-bold text-white shadow-brutal-sm transition-transform hover:-translate-y-0.5"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl border-2 border-sand-50 bg-ocean px-5 py-3 text-sm font-bold text-white shadow-brutal-sm transition-transform hover:-translate-y-0.5"
               >
                 <SiGithub size={18} />
                 Follow {github.handle}

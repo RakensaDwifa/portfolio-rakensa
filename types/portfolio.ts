@@ -87,3 +87,8 @@ export interface NowActivityItem {
   label: string;
   value: string;
 }
+
+export interface NavLink {
+  id: string;
+  label: string;
+}
