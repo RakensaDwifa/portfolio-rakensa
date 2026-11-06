@@ -250,6 +250,7 @@ export const projectsData: Project[] = [
       "Structuring multi-department activities into an intuitive, accessible information architecture for both internal members and external visitors.",
     role: "Lead Web Developer & BPH",
     githubUrl: "https://github.com/RakensaDwifa/hmtf-telkomuniv",
+    demoUrl: "https://hmtf-telkomuniv.vercel.app",
     imageUrl: "/projects/hmtf.webp",
     featured: true,
     metrics: [
@@ -330,6 +331,7 @@ export const projectsData: Project[] = [
       "Thinking in schema before UI — modelling journeys and expenses cleanly so the tracker stays useful over time.",
     role: "Developer",
     githubUrl: "https://github.com/RakensaDwifa/train-journey-tracker",
+    demoUrl: "https://train-journey-tracker.vercel.app",
     imageUrl: "/projects/train-journey-tracker.webp",
     metrics: [
       { label: "Role", value: "Build" },
@@ -470,6 +472,7 @@ export const projectsData: Project[] = [
       "Translating fluid mechanics equations into clean, resilient JavaScript functions with immediate input validation.",
     role: "Developer",
     githubUrl: "https://github.com/RakensaDwifa/Tubes-Mekanika-Fluida",
+    demoUrl: "https://mekanika-fluida-kelompok-a.vercel.app",
     imageUrl: "/projects/mekflu.webp",
     metrics: [
       { label: "Role", value: "Developer" },
