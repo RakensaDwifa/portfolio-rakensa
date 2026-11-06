@@ -65,7 +65,11 @@ export interface TechItem {
   usageContext: string;
 }
 
-export type ExperienceCategory = "education" | "project" | "learning";
+export type ExperienceCategory =
+  | "education"
+  | "project"
+  | "learning"
+  | "organization";
 
 export interface ExperienceItem {
   id: string;

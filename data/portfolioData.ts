@@ -84,6 +84,14 @@ export const techStackData: TechItem[] = [
     usageContext: "DOM logic, events and asynchronous behaviour for dynamic UIs.",
   },
   {
+    name: "TypeScript",
+    layer: "foundation",
+    iconKey: "typescript",
+    color: "#3178C6",
+    roleTag: "Type Safety",
+    usageContext: "Static typing for scalable Next.js and React codebases.",
+  },
+  {
     name: "Tailwind CSS",
     layer: "framework",
     iconKey: "tailwindcss",
@@ -106,6 +114,38 @@ export const techStackData: TechItem[] = [
     color: "#0F172A",
     roleTag: "App Framework",
     usageContext: "Routing, rendering and performance for production web apps.",
+  },
+  {
+    name: "Vite",
+    layer: "tooling",
+    iconKey: "vite",
+    color: "#646CFF",
+    roleTag: "Build Tool",
+    usageContext: "Lightning-fast frontend development and asset bundling.",
+  },
+  {
+    name: "Vitest",
+    layer: "tooling",
+    iconKey: "vitest",
+    color: "#6E9F18",
+    roleTag: "Unit Testing",
+    usageContext: "Automated component and logic testing for maintainable apps.",
+  },
+  {
+    name: "Supabase",
+    layer: "tooling",
+    iconKey: "supabase",
+    color: "#3ECF8E",
+    roleTag: "Backend & Auth",
+    usageContext: "PostgreSQL database, authentication, and cloud storage.",
+  },
+  {
+    name: "Drizzle ORM",
+    layer: "tooling",
+    iconKey: "drizzle",
+    color: "#C5F74F",
+    roleTag: "Type-safe ORM",
+    usageContext: "TypeScript schema definition and clean SQL query generation.",
   },
   {
     name: "Git",
@@ -178,20 +218,59 @@ export const projectsData: Project[] = [
     ],
   },
   {
-    id: "wismaku",
-    title: "Wismaku",
-    subtitle: "Lodging booking platform — customer app + admin panel",
+    id: "hmtf-telkomuniv",
+    title: "HMTF Telkom University",
+    subtitle: "Official student association web portal — organization archive & hub",
     category: "web",
     year: "2026",
     summary:
-      "A RedDoorz-style lodging booking prototype built as a hands-on learning project: a customer-facing marketplace plus a separate admin panel, both deployed on Vercel.",
+      "The official web portal for Himpunan Mahasiswa Teknik Fisika (HMTF) Telkom University, serving as the central hub for organizational information, work programs, and student activities.",
     description:
-      "Wismaku is a two-app product experiment. The customer demo presents a lodging marketplace with a clean booking flow and fictional data, while a separate admin app manages the same domain. The admin side is covered by Vitest tests and CI via GitHub Actions, so the project practices more than just UI — it practices shipping.",
+      "Built to modernize communication and digital archiving for Engineering Physics students at Telkom University Bandung. The portal presents organizational structure, department profiles, upcoming events, and official documentation with a fast, mobile-friendly interface.",
     architecture: [
-      "Customer prototype: React + Vite marketplace interface",
-      "Admin panel: separate React app with Vitest tests + CI",
-      "Configuration-first setup via .env.example",
-      "Both apps deployed independently on Vercel",
+      "Next.js App Router for server-rendered performance and SEO",
+      "Tailwind CSS for a structured, accessible design system",
+      "Modular component architecture for effortless content management",
+      "Centralized project workflows and version control via GitHub",
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "React",
+    ],
+    highlights: [
+      "Official university student association portal",
+      "Mobile-first responsive architecture",
+      "Clean department and activity showcase",
+    ],
+    challenges:
+      "Structuring multi-department activities into an intuitive, accessible information architecture for both internal members and external visitors.",
+    role: "Lead Web Developer & BPH",
+    githubUrl: "https://github.com/RakensaDwifa/hmtf-telkomuniv",
+    imageUrl: "/projects/hmtf.webp",
+    featured: true,
+    metrics: [
+      { label: "Role", value: "Lead Dev" },
+      { label: "Stack", value: "Next.js" },
+      { label: "Type", value: "Organization" },
+    ],
+  },
+  {
+    id: "wismaku",
+    title: "Wismaku Ecosystem",
+    subtitle: "Lodging booking platform — customer app, admin panel & internal tools",
+    category: "web",
+    year: "2026",
+    summary:
+      "A complete lodging booking ecosystem: customer marketplace (wismaku-demo), dedicated admin panel (wismaku-admin), and internal operations tooling (wismaku-internal).",
+    description:
+      "Wismaku is an integrated multi-app product experiment. The customer app provides a smooth lodging booking flow, while wismaku-admin manages property inventory with Vitest unit tests and GitHub Actions CI. wismaku-internal supports operational workflows, practicing real-world end-to-end development.",
+    architecture: [
+      "Customer prototype: React + Vite lodging booking marketplace",
+      "Admin panel (wismaku-admin): React dashboard with Vitest tests + CI",
+      "Internal tools (wismaku-internal): operational workflow & inventory management",
+      "Decoupled multi-repo architecture on GitHub with Vercel deployment",
     ],
     stack: [
       "React",
@@ -201,12 +280,12 @@ export const projectsData: Project[] = [
       "GitHub Actions",
     ],
     highlights: [
-      "Customer + admin shipped as two real apps",
-      "Tested with Vitest in CI",
-      "Live demo on Vercel",
+      "Complete customer + admin + internal ecosystem",
+      "Automated testing with Vitest in GitHub Actions CI",
+      "Independently deployed on Vercel",
     ],
     challenges:
-      "Designing a consistent admin experience for the same data the customer app presents, and keeping both apps deployable individually.",
+      "Designing unified data models across customer, admin, and internal applications while keeping each repository modular and independently deployable.",
     role: "Designer & Developer",
     githubUrl: "https://github.com/RakensaDwifa/wismaku-demo",
     demoUrl: "https://wismaku-demo.vercel.app",
@@ -215,7 +294,7 @@ export const projectsData: Project[] = [
     metrics: [
       { label: "Role", value: "Design & Build" },
       { label: "Stack", value: "React + Vite" },
-      { label: "Type", value: "Prototype" },
+      { label: "Type", value: "Ecosystem" },
     ],
   },
   {
@@ -364,9 +443,57 @@ export const projectsData: Project[] = [
       { label: "Type", value: "Platform" },
     ],
   },
+  {
+    id: "tubes-mekanika-fluida",
+    title: "Fluid Mechanics Simulation",
+    subtitle: "Interactive engineering physics computational web app",
+    category: "web",
+    year: "2026",
+    summary:
+      "A computational web application designed for Engineering Physics coursework to calculate and visualize fluid mechanics equations interactively.",
+    description:
+      "Developed as a major college project for Fluid Mechanics. Combines core engineering physics formulas (such as flow dynamics, Reynolds number, head loss, and Bernoulli equation) with an interactive React user interface, making mathematical validation fast and visual.",
+    architecture: [
+      "React + Vite for fast calculation cycles and responsive UI updates",
+      "Tailwind CSS for clean formula layouts and parameter inputs",
+      "Modular physics calculation logic with instant numerical verification",
+    ],
+    stack: ["React", "Vite", "Tailwind CSS", "JavaScript"],
+    highlights: [
+      "Engineering Physics collegiate coursework project",
+      "Interactive fluid dynamics parameter calculator",
+      "Clean formula visualization and instant results",
+    ],
+    challenges:
+      "Translating fluid mechanics equations into clean, resilient JavaScript functions with immediate input validation.",
+    role: "Developer",
+    githubUrl: "https://github.com/RakensaDwifa/Tubes-Mekanika-Fluida",
+    imageUrl: "/projects/mekflu.webp",
+    metrics: [
+      { label: "Role", value: "Developer" },
+      { label: "Stack", value: "React + Vite" },
+      { label: "Type", value: "Academic" },
+    ],
+  },
 ];
 
 export const experienceData: ExperienceItem[] = [
+  {
+    id: "org-hmtf",
+    period: "2024 — Present",
+    role: "Badan Pengurus Harian (BPH)",
+    organization: "HMTF Telkom University",
+    badge: "Student Organization",
+    category: "organization",
+    description:
+      "Serving on the executive board of Himpunan Mahasiswa Teknik Fisika (HMTF). Leading organizational initiatives, coordinating cross-divisional programs, and directing web/IT development for the official association portal.",
+    highlights: [
+      "Executive leadership and organizational work-program governance",
+      "Spearheading the official HMTF web portal development and digital archive",
+      "Collaborating with academic departments and student members",
+    ],
+    tech: ["Leadership", "Management", "Communication", "Next.js", "Git"],
+  },
   {
     id: "edu-telkom",
     period: "2023 — Present",
@@ -397,6 +524,6 @@ export const experienceData: ExperienceItem[] = [
       "Clean, semantic markup and accessible UI",
       "Version control with Git and GitHub",
     ],
-    tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "Git", "React", "Next.js"],
+    tech: ["HTML", "CSS", "JavaScript", "TypeScript", "Tailwind CSS", "Git", "React", "Next.js", "Vite", "Supabase"],
   },
 ];

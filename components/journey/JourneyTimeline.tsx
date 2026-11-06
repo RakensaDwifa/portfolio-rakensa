@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { Code2, GraduationCap, Rocket } from "lucide-react";
+import { Code2, GraduationCap, Rocket, Users } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { experienceData } from "@/data/portfolioData";
@@ -12,6 +12,7 @@ const CATEGORY: Record<
   education: { icon: GraduationCap, chip: "bg-ocean text-white" },
   learning: { icon: Code2, chip: "bg-ink text-sand-50" },
   project: { icon: Rocket, chip: "bg-ocean-soft text-ink" },
+  organization: { icon: Users, chip: "bg-ocean-dark text-white" },
 };
 
 export function JourneyTimeline() {

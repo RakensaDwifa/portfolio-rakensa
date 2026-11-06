@@ -3,9 +3,14 @@ import { ArrowRight } from "lucide-react";
 import SiHtml5 from "@icons-pack/react-simple-icons/icons/SiHtml5";
 import SiCss from "@icons-pack/react-simple-icons/icons/SiCss";
 import SiJavascript from "@icons-pack/react-simple-icons/icons/SiJavascript";
+import SiTypescript from "@icons-pack/react-simple-icons/icons/SiTypescript";
 import SiTailwindcss from "@icons-pack/react-simple-icons/icons/SiTailwindcss";
 import SiReact from "@icons-pack/react-simple-icons/icons/SiReact";
 import SiNextdotjs from "@icons-pack/react-simple-icons/icons/SiNextdotjs";
+import SiVite from "@icons-pack/react-simple-icons/icons/SiVite";
+import SiVitest from "@icons-pack/react-simple-icons/icons/SiVitest";
+import SiSupabase from "@icons-pack/react-simple-icons/icons/SiSupabase";
+import SiDrizzle from "@icons-pack/react-simple-icons/icons/SiDrizzle";
 import SiGit from "@icons-pack/react-simple-icons/icons/SiGit";
 import SiGithub from "@icons-pack/react-simple-icons/icons/SiGithub";
 import { Reveal } from "@/components/ui/Reveal";
@@ -24,9 +29,14 @@ const ICONS: Record<string, IconComponent> = {
   html5: SiHtml5,
   css: SiCss,
   javascript: SiJavascript,
+  typescript: SiTypescript,
   tailwindcss: SiTailwindcss,
   react: SiReact,
   nextdotjs: SiNextdotjs,
+  vite: SiVite,
+  vitest: SiVitest,
+  supabase: SiSupabase,
+  drizzle: SiDrizzle,
   git: SiGit,
   github: SiGithub,
 };
