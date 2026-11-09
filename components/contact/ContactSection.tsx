@@ -48,8 +48,12 @@ const SOCIAL_ICONS: Record<SocialKey, ComponentType<{ size?: number; className?:
   email: Mail,
 };
 
+const DEFAULT_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbyHgQMJK0sMRL5_aWZL6Adn9VuO_Vj-qbh73XTJUBdd37uXtCR-MeyFTsJ2D3MRE7XU/exec";
+
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [copied, setCopied] = useState(false);
 
@@ -59,12 +63,22 @@ export function ContactSection() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const update = (field: keyof typeof form, value: string) =>
+  const update = (field: keyof typeof form, value: string) => {
+    if (status !== "idle" && status !== "sending") setStatus("idle");
     setForm((previous) => ({ ...previous, [field]: value }));
+  };
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT;
+
+    // Honeypot anti-spam: drop bot submissions silently
+    if (honeypot) {
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+      return;
+    }
+
+    const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || DEFAULT_ENDPOINT;
 
     if (!endpoint) {
       const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
@@ -76,10 +90,23 @@ export function ContactSection() {
     setStatus("sending");
     try {
       const data = new FormData();
+      // Support both Indonesian (Google Apps Script legacy) and English keys
+      data.append("Nama", form.name);
+      data.append("Email", form.email);
+      data.append("Pesan", form.message);
       data.append("name", form.name);
       data.append("email", form.email);
       data.append("message", form.message);
-      await fetch(endpoint, { method: "POST", body: data, mode: "no-cors" });
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: data,
+      });
+
+      if (!response.ok && response.status !== 0) {
+        throw new Error(`Failed to submit: ${response.status}`);
+      }
+
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
     } catch {
@@ -171,6 +198,20 @@ export function ContactSection() {
               onSubmit={handleSubmit}
               className="flex h-full flex-col gap-5 rounded-3xl border-2 border-ink bg-sand-50 p-6 shadow-brutal-lg sm:p-8"
             >
+              {/* Honeypot anti-spam */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(event) => setHoneypot(event.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="grid gap-2 text-sm font-semibold">
                   Your name
@@ -203,6 +244,7 @@ export function ContactSection() {
                 <textarea
                   name="message"
                   required
+                  minLength={10}
                   rows={5}
                   value={form.message}
                   onChange={(event) => update("message", event.target.value)}
